@@ -43,6 +43,17 @@
 - querySelector에서 리턴은 해당 element object다. 해당 엘리먼트에서 사용할 수 있는 method나 property들이 있다.
 - window ... addEventListener ... resize ...
 
-## '스크롤 처리 기본 개념 잡기'에서 새로 알게된 것들
+## '스크롤 처리 기본 개념 잡기'에서 알게된 것들
 
 - window 객체의 pageYOffset 프로퍼트는 현재 얼만큼 스크롤 했는지 그 값을 저장하고 있다.
+
+## '현재 활성시킬 씬 결정하기'에서 알게된 것들
+
+- window.pageYOffset는 진짜로 스크롤을 얼마나 했는지다.
+- chrome 같은 경우는 window.pageYOffset, 즉 스크롤의 가장 작은 값이 0인데, safari는 0 아래로도 간다. 따라서 개발할 때 이것도 생각해야 한다.
+
+## '현재 활성 씬 반영하기'에서 알게된 것들
+
+- window.addEventListener("load", setLayout); -> 페이지 리소스가 모드 로드되면 setLayout 함수를 실행한다. load 대신 DOMContentLoaded를 해도 되는데 이 둘의 차이는 load는 모든 이미지나 비디오 같은 리소스들 까지 다 가져오고 콜백을 실행하는데 DOMContentLoaded는 DOM 엘리먼트들을 다 가져오면 실행한다.
+  그니깐 DOMContentLoaded가 더 빠르게 되긴 하는데 이는 리소스들을 다 가져오는건 확인하지 않는다.
+- 새로 고침했을 때도 생각해야 한다. 모든 처리는 스크롤 섹션의 높이를 정하고 현재 어떤 섹션에 위치해 있는 지를 현재 스크롤 높이와 이전의 섹션들의 스크롤 섹션 높이의 합을 비교하면서 알아낸다.
