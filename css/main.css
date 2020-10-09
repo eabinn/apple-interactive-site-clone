@@ -68,6 +68,7 @@ a {
   height: 3em;
   font-size: 2.5rem;
   margin-bottom: 10px;
+  opacity: 0;
 }
 .main-message p {
   line-height: 1.2;
@@ -129,7 +130,7 @@ a {
   background-color: #bada55;
 }
 .sticky-elem {
-  display: none;
+  /*display: none;*/
   position: fixed;
   top: 0;
   left: 0;
