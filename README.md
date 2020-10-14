@@ -50,3 +50,10 @@
 - keyframe이 사용되어야 한다. keyframe은 애니메이션이 변화가 이뤄지는 특정 시점을 말한다.
 - 그러니깐 정리를 해보면 순차적으로 진행되는 애니메이션들은 배열에 각 애니메이션을 적용할 엘리먼트들을 가져와서 넣고 각 배열의 아이템들을 객체로 만들어 각 엘리먼트들에 필요한 스타일링 및 키프레임을 넣어서 보여주고 싶은 조건에서 해당 배열에서의 각 엘리먼트를 가져와 각각의 아이템들에 정의한 스타일들을 보여주기만 하면 된다.
 - transform 속성 중에 3d 붙는 애들, 예를 들어 translate3d,은 하드웨어 가속이 보장되어 퍼포먼스가 좋다.
+
+# "고해상도 비디오 섹션"에서 새로 알게된 것들
+
+- video 엘리먼트의 loadeddata 이벤트는 비디오가 플레이 준비가 된 상태에 발생하는 이벤트다. 이 외에도 자주 쓰는 이벤트에 canplaythrough가 있다(https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplaythrough_event)
+- video의 progress를 계산하는 것에서 window.innerheight를 빼는 이유는 전체 스크롤 길이는 화면 높이를 제외한 다음이기 때문이다.
+- video 엘리먼트의 currentTime 프로퍼티는 현재 재생 시간이다.
+- window.requestAnimationFrame()은 브라우저에게 수행하기를 원하는 애니메이션을 알리고 다음 리페인트가 진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출하게 합니다. 이 메소드는 리페인트 이전에 실행할 콜백을 인자로 받습니다.
