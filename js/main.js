@@ -15,8 +15,13 @@
         messageB: document.querySelector("#scroll-section-0 .main-message.b"),
         messageC: document.querySelector("#scroll-section-0 .main-message.c"),
         messageD: document.querySelector("#scroll-section-0 .main-message.d"),
+        canvas: document.querySelector("#video-canvas-0"),
+        context: document.querySelector("#video-canvas-0").getContext("2d"),
+        videoImages: [],
       },
       values: {
+        videoImagecount: 300,
+        imageSequence: [0, 299], // [초기값, 마지막 값]
         messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
         messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
         messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -124,6 +129,11 @@
 
     switch (currentScene) {
       case 0:
+        let sequence = Math.round(
+          calcValues(values.imageSequence, currentYOffset)
+        );
+        objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+
         if (scrollRatio <= 0.22) {
           // in
           objs.messageA.style.opacity = calcValues(
@@ -224,6 +234,17 @@
     }
   }
 
+  // canvas에 처리할 이미지들을 setting 하는 함수
+  function setCanvasImages() {
+    let imgElem;
+    for (let i = 0; i < sceneInfo[0].values.videoImagecount; i++) {
+      imgElem = new Image(); // document.createElement('img)와 동일
+      imgElem.src = `./video/001/IMG_${6726 + i}.JPG`;
+      sceneInfo[0].objs.videoImages.push(imgElem);
+    }
+  }
+  setCanvasImages();
+
   function setLayout() {
     for (let i = 0; i < sceneInfo.length; i++) {
       if (sceneInfo[i].type === "sticky") {
@@ -247,6 +268,8 @@
         break;
       }
     }
+
+    document.body.setAttribute("id", `show-scene-${currentScene}`); // 페이지 리로드 또는 리사이즈시 body에 현재 보여줄 scene 값 id로 추가
   }
 
   function scrollLoop() {

@@ -64,3 +64,6 @@
 - canvas 엘리먼트에 width와 height를 줘서 css에 넣은 우선순위가 안 먹히지 않을까 했는데 <canvas> 에서 width=1920으로 설정된 것은 CSS가 아니라, 캔버스 객체의 width 속성이다. 따라서 캔버스가 처리해야할 픽셀의 개수가 width와 height에 따라 1920 X 1080이 된다. CSS에 넣은 크기는 단지 눈에 보이는 크기로, CSS를 조정해서 캔버스의 width와 height 값은 변하지 않고 단지 화면에 표시되는 크기만 바뀐다.
 - <canvas> 엘리먼트를 모든 drawing 조작을 이 엘리먼트의 getContext 메서드를 사용해 리턴 받은 context 객체를 사용하여 조작한다.
 - canvas의 context 객체의 drawImage 메서드는 첫 번째 인자로 그릴 이미지 리소스, 그리고 x좌표 y좌표다.
+- <canvas> 엘리먼트의 width와 height는 사용되는 이미지의 크기로 잡자.
+- 그니깐 배열을 만들고 해당 배열에 각 섹션 갯수만큼 array item을 만들고 각 item에 객체를 넣어 처리해줄 엘리먼트들을 담아서 사용하자.
+- context 객체(getContext 메서드의 리턴 값)의 drawImage 메서드는 여러 개의 파라미터를 넘길 수 있다. 3개는 리소스, x, y, 다섯 개는 추가로 widht, height, 8개도 있다.(https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage)
