@@ -259,7 +259,6 @@
 
     let totalScrollHeight = 0;
     yOffset = window.pageYOffset;
-
     for (let i = 0; i < sceneInfo.length; i++) {
       totalScrollHeight += sceneInfo[i].scrollHeight;
 
@@ -270,6 +269,10 @@
     }
 
     document.body.setAttribute("id", `show-scene-${currentScene}`); // 페이지 리로드 또는 리사이즈시 body에 현재 보여줄 scene 값 id로 추가
+
+    const heightRatio = window.innerHeight / 1080; // 화면 높이  / canvas의 height
+    sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
+    
   }
 
   function scrollLoop() {

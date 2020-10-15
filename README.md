@@ -67,3 +67,7 @@
 - <canvas> 엘리먼트의 width와 height는 사용되는 이미지의 크기로 잡자.
 - 그니깐 배열을 만들고 해당 배열에 각 섹션 갯수만큼 array item을 만들고 각 item에 객체를 넣어 처리해줄 엘리먼트들을 담아서 사용하자.
 - context 객체(getContext 메서드의 리턴 값)의 drawImage 메서드는 여러 개의 파라미터를 넘길 수 있다. 3개는 리소스, x, y, 다섯 개는 추가로 widht, height, 8개도 있다.(https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage)
+- canvas 크기를 조절하는 방식은 두 가지가 있다. canvas의 width와 height를 script로 조작하는 방식(이 방식으로는 픽셀수를 조작할 수 있다.)과 css로 scale을 조작하는 것이다. apple에서도 css로 scale을 조작하는 방식을 사용하고 있는데 canvas의 width와 height는 고정이며 css의 transform 요소의 scale을 사용하여 화면을 채운다.
+- pc, tablet 세로 모드, tablet 가로 모드, smart phone 가로, 세로 ,,, 그리고 각 기기들 마다 화면의 크기도 다르다. 이 모든 것을 고려해줘야 한다. 고정된 픽셀수를 가진 canvas를 가지고 화면을 가득 채워야 한다. 이럴 경우 어떻게 하면되면 height를 꽉 채우는 비율로 scale 조정을 해주면 된다. 이미지의 중요 이미지들은 가운데에 있으니 가로는 양 옆으로 짤려도 된다.
+- 윈도우의 창크기가 바뀔 때마다 조작을 해줘야 하면 resize 이벤트에 걸어주면 된다. setLayout에 canvas 화면에 딱 맞게 하는 조작을 해주자.
+- 높이가 고정이니 높이를 기준으로 scale할 비율을 정한다. 높이 비율에 따라 canvas이 가로가 늘어나고 줄어들고 하겠지... 근데 다시 한번 말하지만 중요 이미지는 가운데에 있고 양옆 사이드는 짤려도 된다... 근데 scale할 경우에는 다른 요소에 영향을 안 받는다. 만약 top: 0 이였다, 그러면 top은 그대로 0이다. 근데 스케일만 달라지는거다. 따라서 scale 되는 요소 가운데 정렬 하려면 css로 top: 50%; left: 50% 해주고 scale 될 때 script로 top: -50%; left: -50% 해주면 된다.

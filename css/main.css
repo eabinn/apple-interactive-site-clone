@@ -155,7 +155,12 @@ a {
 }
 .sticky-elem-canvas {
   top: 0;
-  background-color: red;
+  height: 100%;
+}
+.sticky-elem-canvas canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 @media (min-width: 1024px) {
   #scroll-section-0 h1 {
