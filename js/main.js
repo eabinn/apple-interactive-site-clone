@@ -93,12 +93,20 @@
       },
     },
     {
+      // 3
       type: "sticky",
       heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
       scrollHeight: 0,
       objs: {
         container: document.querySelector("#scroll-section-3"),
         canvasCaption: document.querySelector(".canvas-caption"),
+        canvas: document.querySelector(".image-blend-canvas"),
+        context: document.querySelector(".image-blend-canvas").getContext("2d"),
+        imagesPaths: [
+          "./images/blend-image-1.jpg",
+          "./images/blend-image-2.jpg",
+        ],
+        images: [],
       },
       values: {},
     },
@@ -329,8 +337,13 @@
 
         break;
       case 3:
-        //console.log(currentYOffset);
-        break;
+        // 가로 / 세로 모두 꽉 차게 하기 위해 여기서 세팅 (계산 필요)
+        const widthRatio = window.innerWidth / objs.canvas.width;
+        const heightRatio = window.innerHeight / objs.canvas.height;
+        let canvasScaleRatio =
+          heightRatio >= widthRatio ? heightRatio : widthRatio;
+        objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
+        objs.context.drawImage(objs.images[0], 0, 0);
     }
   }
 
@@ -349,6 +362,14 @@
       imgElem2.src = `./video/002/IMG_${7027 + i}.JPG`;
       sceneInfo[2].objs.videoImages.push(imgElem2);
     }
+
+    let imgElem3;
+    for (let i = 0; i < sceneInfo[3].objs.imagesPaths.length; i++) {
+      imgElem3 = new Image();
+      imgElem3.src = sceneInfo[3].objs.imagesPaths[i];
+      sceneInfo[3].objs.images.push(imgElem3);
+    }
+    console.log(sceneInfo[3].objs.images);
   }
   setCanvasImages();
 
