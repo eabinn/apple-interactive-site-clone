@@ -6,6 +6,7 @@
 
   const sceneInfo = [
     {
+      // 0
       type: "sticky",
       heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
       scrollHeight: 0,
@@ -42,6 +43,7 @@
       },
     },
     {
+      // 1
       type: "normal",
       heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
       scrollHeight: 0,
@@ -50,6 +52,7 @@
       },
     },
     {
+      // 2
       type: "sticky",
       heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
       scrollHeight: 0,
@@ -60,8 +63,15 @@
         messageC: document.querySelector("#scroll-section-2 .c"),
         pinB: document.querySelector("#scroll-section-2 .b .pin"),
         pinC: document.querySelector("#scroll-section-2 .c .pin"),
+        canvas: document.querySelector("#video-canvas-1"),
+        context: document.querySelector("#video-canvas-1").getContext("2d"),
+        videoImages: [],
       },
       values: {
+        videoImagecount: 960,
+        imageSequence: [0, 959], // [초기값, 마지막 값]
+        canvas_opacity_in: [0, 1, { start: 0, end: 0.1 }],
+        canvas_opacity_out: [1, 0, { start: 0.95, end: 1 }],
         messageA_translateY_in: [20, 0, { start: 0.15, end: 0.2 }],
         messageB_translateY_in: [30, 0, { start: 0.6, end: 0.65 }],
         messageC_translateY_in: [30, 0, { start: 0.87, end: 0.92 }],
@@ -76,6 +86,10 @@
         messageC_opacity_out: [1, 0, { start: 0.95, end: 1 }],
         pinB_scaleY: [0.5, 1, { start: 0.6, end: 0.65 }],
         pinC_scaleY: [0.5, 1, { start: 0.87, end: 0.92 }],
+        pinB_opacity_in: [0, 1, { start: 0.6, end: 0.65 }],
+        pinC_opacity_in: [0, 1, { start: 0.87, end: 0.92 }],
+        pinB_opacity_out: [1, 0, { start: 0.68, end: 0.73 }],
+        pinC_opacity_out: [1, 0, { start: 0.95, end: 1 }],
       },
     },
     {
@@ -117,7 +131,6 @@
     } else {
       rv = scrollRatio * (values[1] - values[0]) + values[0];
     }
-
     return rv;
   }
 
@@ -134,8 +147,11 @@
           calcValues(values.imageSequence, currentYOffset)
         );
         objs.context.drawImage(objs.videoImages[sequence], 0, 0);
-        objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset);
-        
+        objs.canvas.style.opacity = calcValues(
+          values.canvas_opacity,
+          currentYOffset
+        );
+
         if (scrollRatio <= 0.22) {
           // in
           objs.messageA.style.opacity = calcValues(
@@ -228,7 +244,89 @@
         //console.log(currentYOffset);
         break;
       case 2:
-        //console.log(currentYOffset);
+        let sequence2 = Math.round(
+          calcValues(values.imageSequence, currentYOffset)
+        );
+        objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
+
+        if (scrollRatio <= 0.5) {
+          objs.canvas.style.opacity = calcValues(
+            values.canvas_opacity_in,
+            currentYOffset
+          );
+        } else {
+          objs.canvas.style.opacity = calcValues(
+            values.canvas_opacity_out,
+            currentYOffset
+          );
+        }
+
+        if (scrollRatio <= 0.22) {
+          // in
+          objs.messageA.style.opacity = calcValues(
+            values.messageA_opacity_in,
+            currentYOffset
+          );
+          objs.messageA.style.transform = `translate3d(${calcValues(
+            values.messageA_translateY_in,
+            currentYOffset
+          )}%, 0)`;
+        } else {
+          // out
+          objs.messageA.style.opacity = calcValues(
+            values.messageA_opacity_out,
+            currentYOffset
+          );
+          objs.messageA.style.transform = `translate#d(${calcValues(
+            values.messageA_translateY_out,
+            currentYOffset
+          )}%, 0)`;
+        }
+
+        if (scrollRatio <= 0.42) {
+          // in
+          objs.messageB.style.opacity = calcValues(
+            values.messageB_opacity_in,
+            currentYOffset
+          );
+          objs.messageB.style.transform = `translate3d(0, ${calcValues(
+            values.messageB_translateY_in,
+            currentYOffset
+          )}%, 0)`;
+        } else {
+          // out
+          objs.messageB.style.opacity = calcValues(
+            values.messageB_opacity_out,
+            currentYOffset
+          );
+          objs.messageB.style.transform = `translate3d(0, ${calcValues(
+            values.messageB_translateY_out,
+            currentYOffset
+          )}%, 0)`;
+        }
+
+        if (scrollRatio <= 0.62) {
+          // in
+          objs.messageC.style.opacity = calcValues(
+            values.messageC_opacity_in,
+            currentYOffset
+          );
+          objs.messageC.style.transform = `translate3d(0, ${calcValues(
+            values.messageC_translateY_in,
+            currentYOffset
+          )}%, 0)`;
+        } else {
+          // out
+          objs.messageC.style.opacity = calcValues(
+            values.messageC_opacity_out,
+            currentYOffset
+          );
+          objs.messageC.style.transform = `translate3d(0, ${calcValues(
+            values.messageC_translateY_out,
+            currentYOffset
+          )}%, 0)`;
+        }
+
         break;
       case 3:
         //console.log(currentYOffset);
@@ -243,6 +341,13 @@
       imgElem = new Image(); // document.createElement('img)와 동일
       imgElem.src = `./video/001/IMG_${6726 + i}.JPG`;
       sceneInfo[0].objs.videoImages.push(imgElem);
+    }
+
+    let imgElem2;
+    for (let i = 0; i < sceneInfo[2].values.videoImagecount; i++) {
+      imgElem2 = new Image();
+      imgElem2.src = `./video/002/IMG_${7027 + i}.JPG`;
+      sceneInfo[2].objs.videoImages.push(imgElem2);
     }
   }
   setCanvasImages();
@@ -274,7 +379,7 @@
 
     const heightRatio = window.innerHeight / 1080; // 화면 높이  / canvas의 height
     sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
-    
+    sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
   }
 
   function scrollLoop() {
@@ -306,7 +411,7 @@
   window.addEventListener("scroll", () => {
     yOffset = window.pageYOffset;
     scrollLoop();
-  })
+  });
   window.addEventListener("resize", setLayout);
   window.addEventListener("load", () => {
     setLayout();
