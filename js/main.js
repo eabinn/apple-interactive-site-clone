@@ -111,6 +111,7 @@
       values: {
         rect1X: [0, 0, { start: 0, end: 0 }], // [출발, 시작, {애니메이션 시작, 애니메이션 끝}]
         rect2X: [0, 0, { start: 0, end: 0 }],
+        rectStartY: 0,
       },
     },
   ];
@@ -348,10 +349,19 @@
         objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
         objs.context.drawImage(objs.images[0], 0, 0);
 
+        if (!values.rectStartY) {
+          values.rectStartY =
+            objs.canvas.offsetTop +
+            (objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2;
+          values.rect1X[2].start = window.innerHeight / 2 / scrollHeight;
+          values.rect1X[2].end = values.rectStartY / scrollHeight;
+          values.rect2X[2].start = window.innerHeight / 2 / scrollHeight;
+          values.rect2X[2].end = values.rectStartY / scrollHeight;
+        }
+
         // canvas 사이즈에 맞춰 가정한 innerWidth와 innerHeight
         const recalculatedInnerWidth = window.innerWidth / canvasScaleRatio;
         const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio;
-        console.log(recalculatedInnerWidth);
 
         const whiteRectWidth = recalculatedInnerWidth * 0.15;
         values.rect1X[0] = (objs.canvas.width - recalculatedInnerWidth) / 2;
@@ -360,6 +370,8 @@
           values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
         values.rect2X[1] = values.rect2X[0] + whiteRectWidth;
 
+        console.log(objs.canvas.offsetTop);
+        /*
         objs.context.fillRect(
           values.rect1X[0],
           0,
@@ -368,6 +380,21 @@
         );
         objs.context.fillRect(
           values.rect2X[0],
+          0,
+          parseInt(whiteRectWidth),
+          objs.canvas.height
+        );
+        */
+        objs.context.fillStyle = "#ffffff";
+        objs.context.fillRect(
+          parseInt(calcValues(values.rect1X, currentYOffset)),
+          0,
+          parseInt(whiteRectWidth),
+          objs.canvas.height
+        );
+
+        objs.context.fillRect(
+          parseInt(calcValues(values.rect2X, currentYOffset)),
           0,
           parseInt(whiteRectWidth),
           objs.canvas.height

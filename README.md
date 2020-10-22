@@ -95,3 +95,10 @@
 - 블렌딩 할 이미지를 컨트롤 할 데이터를 미리 넣을 수 없는 이유는 알 수가 없기 때문이다. 화면 크기가 어떨지 모른다. 따라서 스크롤 할 때 판단해서 계산해서 넣는다.
 - 잘 생각해봐라. 캔버스의 크기가 현재 화면의 크기보다 크다. 캔버스를 화면의 높이나 가로의 비율에 따라 어떻게든 화면이 캔버스의 중앙에 위치하게 한다.
 - canvas에서 정수로 그릴 때 성능이 더 좋다.
+- getBoundingClientRect() 메서드는 화면 상에 있는 object의 크기와 위치를 알 수 있는 메서드다.
+- getBouningClientRect()로 top 위치를 가져올 때 스크롤 속도에 따라 이벤트가 발생할 때 오차가 생겨 동일한 값을 얻는데 문제가 있다.
+- 엘리먼트를 조작할 배열에서 values에 들아가는 각 key value에서 value의 start와 end는 섹션의 총 높이에서 몇 퍼센트까지 해당 애니메이션을 보여줄 지 정하는 거다.
+- window의 innerWidth는 스크롤바까지 포함하는 길이다. 스크롤 바를 제외한 길이를 구하자. document.body.offsetWidth로 width를 가져오자. (크롬에서 다시 둥둥 뜬다. window.innerWidth 사용해도 될 듯)
+- offsetTop 속성을 사용하자. 근데 이 속성은 전체 문서에서 해당 엘리먼트까지의 offset을 가져온다. 근데 이 값은 바꿀 수 있다. canvas의 부모 속성인 섹션의 포지션을 relative로 하게 되면 이 섹션을 기준으로 canvas까지의 offset 을 가져올 수 있다.
+- 근데 offset을 써도 길이가 좀 애매하다. 왜냐하면 canvas를 width나 height를 기준으로 scale transform 해줬기 때문이다. 이 offset은 transform 하기 전에 canvas의 위치의 offset이다.
+- 상위 엘리먼트의 position을 relative로 하여 하위 엘리먼트들의 기준이 되게 하자.
