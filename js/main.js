@@ -112,6 +112,7 @@
         rect1X: [0, 0, { start: 0, end: 0 }], // [출발, 시작, {애니메이션 시작, 애니메이션 끝}]
         rect2X: [0, 0, { start: 0, end: 0 }],
         rectStartY: 0,
+        blendHeight: [0, 0, { start: 0, end: 0 }],
       },
     },
   ];
@@ -432,6 +433,24 @@
         } else {
           // canvas가 브라우저 상단에 닿았을 때 이미지 블렌드
           step = 2;
+          // 이미지 블렌드
+          values.blendHeight[0] = 0;
+          values.blendHeight[1] = objs.canvas.height;
+          values.blendHeight[2].start = values.rect1X[2].end;
+          values.blendHeight[2].end = values.blendHeight[2].start + 0.2; // 이 부분은 내가 정한다. 전체 스크롤 길이가 1이니 끝나는 시점부터 몇 퍼센트까지 해당 이미지를 보이게 할 지 정하면 된다.
+          const blendHeight = calcValues(values.blendHeight, currentYOffset);
+
+          objs.context.drawImage(
+            objs.images[1],
+            0,
+            objs.canvas.height - blendHeight,
+            objs.canvas.width,
+            blendHeight,
+            0,
+            objs.canvas.height - blendHeight,
+            objs.canvas.width,
+            blendHeight
+          );
           objs.canvas.classList.add("sticky");
           objs.canvas.style.top = `-${
             (objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2
