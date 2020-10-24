@@ -339,8 +339,47 @@
           )}%, 0)`;
         }
 
+        // current scene 3에서 사용되는 canvas 미리 그려주기. current scene 2 의 90% 까지 스크롤 했을 때 그려주자.
+        if (scrollRatio > 0.9) {
+          console.log("Scroll ration > 0.9");
+          const objs = sceneInfo[3].objs;
+          const values = sceneInfo[3].values;
+          const widthRatio = window.innerWidth / objs.canvas.width;
+          const heightRatio = window.innerHeight / objs.canvas.height;
+          let canvasScaleRatio =
+            heightRatio >= widthRatio ? heightRatio : widthRatio;
+          objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
+          objs.context.drawImage(objs.images[0], 0, 0);
+
+          // canvas 사이즈에 맞춰 가정한 innerWidth와 innerHeight
+          const recalculatedInnerWidth = window.innerWidth / canvasScaleRatio;
+          const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio;
+
+          const whiteRectWidth = recalculatedInnerWidth * 0.15;
+          values.rect1X[0] = (objs.canvas.width - recalculatedInnerWidth) / 2;
+          values.rect1X[1] = values.rect1X[0] - whiteRectWidth;
+          values.rect2X[0] =
+            values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
+          values.rect2X[1] = values.rect2X[0] + whiteRectWidth;
+
+          objs.context.fillStyle = "#ffffff";
+          objs.context.fillRect(
+            parseInt(values.rect1X[0]),
+            0,
+            parseInt(whiteRectWidth),
+            objs.canvas.height
+          );
+          objs.context.fillRect(
+            parseInt(values.rect2X[0]),
+            0,
+            parseInt(whiteRectWidth),
+            objs.canvas.height
+          );
+        }
         break;
+
       case 3:
+        console.log("Scroll Section 3");
         // 가로 / 세로 모두 꽉 차게 하기 위해 여기서 세팅 (계산 필요)
         const widthRatio = window.innerWidth / objs.canvas.width;
         const heightRatio = window.innerHeight / objs.canvas.height;
@@ -370,7 +409,6 @@
           values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
         values.rect2X[1] = values.rect2X[0] + whiteRectWidth;
 
-        console.log(objs.canvas.offsetTop);
         /*
         objs.context.fillRect(
           values.rect1X[0],
@@ -399,6 +437,7 @@
           parseInt(whiteRectWidth),
           objs.canvas.height
         );
+        break;
     }
   }
 

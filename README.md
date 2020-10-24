@@ -102,3 +102,4 @@
 - offsetTop 속성을 사용하자. 근데 이 속성은 전체 문서에서 해당 엘리먼트까지의 offset을 가져온다. 근데 이 값은 바꿀 수 있다. canvas의 부모 속성인 섹션의 포지션을 relative로 하게 되면 이 섹션을 기준으로 canvas까지의 offset 을 가져올 수 있다.
 - 근데 offset을 써도 길이가 좀 애매하다. 왜냐하면 canvas를 width나 height를 기준으로 scale transform 해줬기 때문이다. 이 offset은 transform 하기 전에 canvas의 위치의 offset이다.
 - 상위 엘리먼트의 position을 relative로 하여 하위 엘리먼트들의 기준이 되게 하자.
+- 지금 canvas는 scroll section 3에 도달해야지 생긴다. 그래서 화면 홀쭉하게 해서 섹션을 길게 해서 보면 이상하게 보인다.
