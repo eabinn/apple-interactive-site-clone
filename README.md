@@ -103,3 +103,6 @@
 - 근데 offset을 써도 길이가 좀 애매하다. 왜냐하면 canvas를 width나 height를 기준으로 scale transform 해줬기 때문이다. 이 offset은 transform 하기 전에 canvas의 위치의 offset이다.
 - 상위 엘리먼트의 position을 relative로 하여 하위 엘리먼트들의 기준이 되게 하자.
 - 지금 canvas는 scroll section 3에 도달해야지 생긴다. 그래서 화면 홀쭉하게 해서 섹션을 길게 해서 보면 이상하게 보인다.
+- canvas를 sticky 하게 하니 canvas 크기가 작아졌다. 그 이유는 현재 width가 100%로 브라우저 크기에 꽉차는데 scale이 적용돼서 작아졌기 때문이다.
+- scale(0.2) 이렇게 하면 줄어드는데... top 같은 스타일도 원래 크기에 적용된다. canvas를 어떤 비율로 줄였느냐... 이 비율을 top에 적용해야 한다.
+- scale을 적용 했을 때 다른 부분들에서 위치가 안 맞을 때는 scale 여부를 생각하자.

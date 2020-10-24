@@ -380,6 +380,7 @@
 
       case 3:
         console.log("Scroll Section 3");
+        let step = 0;
         // 가로 / 세로 모두 꽉 차게 하기 위해 여기서 세팅 (계산 필요)
         const widthRatio = window.innerWidth / objs.canvas.width;
         const heightRatio = window.innerHeight / objs.canvas.height;
@@ -409,20 +410,6 @@
           values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
         values.rect2X[1] = values.rect2X[0] + whiteRectWidth;
 
-        /*
-        objs.context.fillRect(
-          values.rect1X[0],
-          0,
-          parseInt(whiteRectWidth),
-          objs.canvas.height
-        );
-        objs.context.fillRect(
-          values.rect2X[0],
-          0,
-          parseInt(whiteRectWidth),
-          objs.canvas.height
-        );
-        */
         objs.context.fillStyle = "#ffffff";
         objs.context.fillRect(
           parseInt(calcValues(values.rect1X, currentYOffset)),
@@ -437,6 +424,19 @@
           parseInt(whiteRectWidth),
           objs.canvas.height
         );
+
+        if (scrollRatio < values.rect1X[2].end) {
+          // canvas가 브라우저 상단에 닿지 않았을 때
+          step = 1;
+          objs.canvas.classList.remove("sticky");
+        } else {
+          // canvas가 브라우저 상단에 닿았을 때 이미지 블렌드
+          step = 2;
+          objs.canvas.classList.add("sticky");
+          objs.canvas.style.top = `-${
+            (objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2
+          }px`;
+        }
         break;
     }
   }
