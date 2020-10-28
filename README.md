@@ -108,3 +108,6 @@
 - scale을 적용 했을 때 다른 부분들에서 위치가 안 맞을 때는 scale 여부를 생각하자.
 - canvas의 context의 drawImage 에는 image 뿐만 아니라 비디오, 또 다른 canvas도 들어갈 수 있다. drawImage 할 때 width와 height 넣어주지 않으면 원래 이미지 크기로 그린다.
 - CanvasRenderingContext2D의 drawImage에 8개의 인자가 들어갈 수 있는데 이 경우 source와 destination으로 들어간다. 원래 이미지를 canvas의 destination에 그릴 때 사용한다.
+- main.js에서 calcValues 함수에 들어가는 currentYOffset은 현재 scene(scroll section)에서 얼마나 스크롤 했는지를 저장하는 변수다.
+- sticky가 끝났을떄 자연스럽게 올리기 위해서는 margin-top을 계산해야 하는데 sticky 되는 동안 얼마나 스크롤 했는지를 계산하면 된다. 40%다. 왜냐하면 현재 섹션에서 20% 동안 블렌딩을 해주고 20% 동안 축소해줬기 때문이다.
+- sticky 된 동안 얼마나 스크롤 됐는지를 계산하면 된다.
