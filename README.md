@@ -119,3 +119,6 @@
 - requestAnimationFrame을 사용하는 기본적인 방법은 반복시킬 함수 안에서 requestAnimationFrame 메서드에게 인자로 반복시킬 함수 자체를 넣어주는 것이다. requestAnimationFrame의 반복 속도는 초당 60, 즉 60 프레임이다.
 - setInterval이나 setTimeout도 return으로 id를 반환하는데 requestAnimationFrame도 id를 반환한다. 반복되는 애니메이션을 종료하고 싶다면 cancelAnimationFrame을 하면 된다.
 - requestAnimationFrame을 canvas 에서 많이 쓴다. 특히 인터랙티브! 에서 많이 쓰이니깐 잘 알아두자.
+- 부드러운 감속을 해보자. 일단 window에 scroll 이벤트를 등록해서 스크롤 했을 때마다 expression을 반복할 수 있으나 이거 말고도 requestAnimationFrame 메서드를 사용하여 구현할 수도 있다. requestAnimationFrame에 동작할 함수를 인자로 전달하면 해당 함수는 1초에 60번 실행을 하게 된다. 그럼 내가 예를 들어 window.pageYOffset 값을 함수에서 사용하게 되면 스크롤을 했다고 가정하면 pageYOffset 값은 변하기 때문에 마치 스크롤 이벤트에 등록한 것처럼 동작을 하게 된다. 그리고 부드러운 감속, 이것은 destination과 start 사이의 거리를 특정 값으로 나눠서 단계별로 값을 줄이는 것과 동일하다. 한번 스크롤 하면 약 10px이 툭하고 감소 하는데 이 10px를 나눠서 진행하는 것과 같은 것이다.
+- 가속을 주는 것이다. 그 나누는 것이 가속을 주는 것이다. 스크롤을 이용하는 pageYOffset을 목표 지점으로 두는 것이다.
+- requestAnimationFrame에 함수를 전달하면 1초에 60번씩 계속 실행을 하나 그렇게 될 경우 어떻게든 부하가 생기니 동작을 하지 않아도 되면 cancel 하고 하는 방향도 추가해줘야 한다.
