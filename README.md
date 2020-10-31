@@ -111,3 +111,11 @@
 - main.js에서 calcValues 함수에 들어가는 currentYOffset은 현재 scene(scroll section)에서 얼마나 스크롤 했는지를 저장하는 변수다.
 - sticky가 끝났을떄 자연스럽게 올리기 위해서는 margin-top을 계산해야 하는데 sticky 되는 동안 얼마나 스크롤 했는지를 계산하면 된다. 40%다. 왜냐하면 현재 섹션에서 20% 동안 블렌딩을 해주고 20% 동안 축소해줬기 때문이다.
 - sticky 된 동안 얼마나 스크롤 됐는지를 계산하면 된다.
+
+# '더 부드럽게 동작하는 고화질 비디오'에서 알게된 것들
+
+- requestAnimationFrame이란 브라우저가 매번 화면을 그리는데 변하는 화면을 그릴 준비가 완료됐을 때 그려준다. 예전에는 setInterval으로 했는데 프레임 유실 또는 모바일에서 배터리 소모의 이유로 요즘에는 requestAnimationFrame을 사용한다.
+- 일단 기본적으로 requestAnimationFrame은 비동기 적으로 실행되고 1번만 실행된다.
+- requestAnimationFrame을 사용하는 기본적인 방법은 반복시킬 함수 안에서 requestAnimationFrame 메서드에게 인자로 반복시킬 함수 자체를 넣어주는 것이다. requestAnimationFrame의 반복 속도는 초당 60, 즉 60 프레임이다.
+- setInterval이나 setTimeout도 return으로 id를 반환하는데 requestAnimationFrame도 id를 반환한다. 반복되는 애니메이션을 종료하고 싶다면 cancelAnimationFrame을 하면 된다.
+- requestAnimationFrame을 canvas 에서 많이 쓴다. 특히 인터랙티브! 에서 많이 쓰이니깐 잘 알아두자.

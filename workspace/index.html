@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Workspace for requestAnimationFrame</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        text-align: center;
+      }
+      .finn {
+        z-index: -1;
+      }
+      .value {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="value">requestAnimationFrame</div>
+    <img class="finn" src="Finn.png" />
+    <script>
+      const finn = document.querySelector(".finn");
+      const value = document.querySelector(".value");
+      let yPos = 0;
+      let rafId;
+
+      function render() {
+        finn.style.transform = `translateY(${yPos}px)`;
+        yPos++;
+
+        rafId = requestAnimationFrame(render);
+        console.log(rafId);
+      }
+
+      render();
+
+      window.addEventListener("click", () => {
+        if (rafId === -1) {
+          requestAnimationFrame(render);
+        } else {
+          cancelAnimationFrame(rafId);
+          rafId = -1;
+        }
+      });
+    </script>
+  </body>
+</html>
