@@ -125,3 +125,16 @@
 - 핸드폰에서는 리사이즈 하는 경우가 거의 없으니 방향 바꿀 때 resize 발생하나 그 외에는 reseize 안되게 하자.
 - orientationchange 이벤트는 모바일 디바이스 가로로, 세로로 바꿀 때 발생하는 이벤트다.
 - 현재 scroll section 3에서 rectStartY 값을 dynamic하게 정하고 있는데 한번 정하고 끝이다. 그래서 창 사이즈를 후에 줄이면 canvas가 살짝 안 맞는 오차가 생긴다. 창 사이즈 바뀌기 전의 값이여서 그렇다. 따라서 창 resize 됐을 때 값을 초기화 해주자. 어차피 0일때 다시 값을 구하니깐 다시 구해진다.
+
+# 'SVG 애니메이션을 이용한 로딩 만들기'에서 알게된 것들
+
+- svg는 svg 태그를 이용하여 그리며 원은 circle 태그를 이용해서 그린다. 원을 그린다고 하면 위치랑 크기를 정해줘야 한다. 위치는 원의 중점, 그리고 크기는 반지름의 크기로 세팅한다.
+- svg는 css 줄 때 svg 속성(ex. stroke, stroke-width ...)을 사용해야 한다.
+- svg는 바깥의 viewbox의 설정에 따라 절대 크기가 변할 수 있어서 단위(px, rem, ... )를 정하지 않는다.
+- svg의 viewBox 속성은 svg의 width와 height를 기준으로 svg 안의 단위의 기준이 된다. viewBox를 기준으로 svg안의 값들은 상대적으로 정해진다..
+- stroke는 가운데로 그려진다. 따라서 stroke-width를 주면 양옆으로 생긴다. 따라서 현재 viewBox가 0 0 54 54이고 반지름이 25인데 여기에 stroke-width를 4주면 28이라 원이 56x56안에 있다고 생각드는데 stroke가 가운데로 지나가기 때문에 양옆에 2씩 줌으로써 원의 반지름은 27이 되기 때문에 viewBox 0 0 54 54에 딱 들어오게 된다.
+- storke의 바깥쪽이 svg의 color, storke의 안쪽이 fill color로 먹힌다. stroke는 반을 지나가고 경계가 된다.
+- svg의 css의 storke-dasharray 속성에 만약 25%를 주면 '--------' 이 '-- -- -- ' 이렇게 나올 수 있다. 또한 stroke-dashoffset을 사용하면 이 dash 들을 이동시킬 수 있다. 이 두 속성을 사용하면 선이 이동하는 것을 표현할 수 있다. 없던 걸 그려낼 수도 있다.
+- svg의 getTotalLength 메서드를 사용하여 svg 엘리먼트의 스트로크 총 길이를 얻어올 수 있다.
+- 자동으로 움직여야 하니 transition 보다는 animation을 사용하자.
+- css의 keyframes는 시작부터 끝까지를 정하는 것이다.
