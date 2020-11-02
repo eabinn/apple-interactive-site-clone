@@ -138,3 +138,4 @@
 - svg의 getTotalLength 메서드를 사용하여 svg 엘리먼트의 스트로크 총 길이를 얻어올 수 있다.
 - 자동으로 움직여야 하니 transition 보다는 animation을 사용하자.
 - css의 keyframes는 시작부터 끝까지를 정하는 것이다.
+- loading div를 없애져야 하는데 바로 지우면 transition을 사용하는 의미가 없다. transitionend 이벤트를 사용하자.
