@@ -526,7 +526,6 @@
     }
     console.log(sceneInfo[3].objs.images);
   }
-  setCanvasImages();
 
   function checkMenu() {
     if (yOffset > 44) document.body.classList.add("local-nav-sticky");
@@ -629,10 +628,19 @@
     }
   });
 
-  window.addEventListener("resize", setLayout);
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 600) {
+      setLayout();
+    }
+    sceneInfo[3].values.rectStartY = 0;
+  });
 
   window.addEventListener("load", () => {
     setLayout();
     sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
   });
+
+  window.addEventListener("orientationchange", setLayout);
+
+  setCanvasImages();
 })();
