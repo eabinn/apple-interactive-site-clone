@@ -634,13 +634,15 @@
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 600) {
+      if (window.innerWidth > 900) {
         setLayout();
+        sceneInfo[3].values.rectStartY = 0; // 스크롤 섹션 3에서 캔버스가 시작될 위치를 이 값을 통해 구한다.
       }
-      sceneInfo[3].values.rectStartY = 0;
     });
 
-    window.addEventListener("orientationchange", setLayout);
+    window.addEventListener("orientationchange", () => {
+      setTimeout(setLayout, 500);
+    });
 
     document
       .querySelector(".loading")

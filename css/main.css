@@ -13,6 +13,9 @@ body {
 body.before-load {
   overflow: hidden;
 }
+.container {
+  overflow-x: hidden; /* 모바일에서 가로 스크롤 방지 */
+}
 p {
   line-height: 1.6;
 }
@@ -44,6 +47,9 @@ a {
   top: 0;
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: saturate(180%) blur(15px);
+  -webkit-backdrop-filter: saturate(180%) blur(15px); /* iphone */
+  -moz-backdrop-filter: saturate(180%) blur(15px); /* firfox */
+  -o-backdrop-filter: saturate(180%) blur(15px); /* opera */
 }
 .global-nav-links,
 .local-nav-links {
@@ -146,7 +152,7 @@ a {
   color: #888888;
   font-size: 1.2rem;
   max-width: 1000px;
-  margin: -8em auto 0;
+  margin: -24em auto 0;
 }
 .footer {
   display: flex;
@@ -277,6 +283,7 @@ a {
     font-size: 4vw;
   }
   .canvas-caption {
+    margin-top: -8rem;
     padding: 0;
     font-size: 2rem;
   }
