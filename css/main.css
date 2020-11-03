@@ -10,6 +10,9 @@ body {
   letter-spacing: -0.05em; /* rem은 최상단 element, 즉, html에서 정해지는 폰트 사이즈에 상대적이고 em은 현재 스타일 지정 요소에서의 상대값이다. */
   background-color: #ffffff;
 }
+body.before-load {
+  overflow: hidden;
+}
 p {
   line-height: 1.6;
 }
@@ -163,6 +166,7 @@ a {
 #show-scene-2 #scroll-section-2 .sticky-elem,
 #show-scene-3 #scroll-section-3 .sticky-elem {
   display: block;
+  will-change: opacity, transform;
 }
 .sticky-elem-canvas {
   top: 0;

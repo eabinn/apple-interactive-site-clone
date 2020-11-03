@@ -139,3 +139,15 @@
 - 자동으로 움직여야 하니 transition 보다는 animation을 사용하자.
 - css의 keyframes는 시작부터 끝까지를 정하는 것이다.
 - loading div를 없애져야 하는데 바로 지우면 transition을 사용하는 의미가 없다. transitionend 이벤트를 사용하자.
+
+# '마무리 작업'에서 알게된 것들
+
+- 계속 뜬 'main.js:575 Uncaught TypeError: Cannot read property 'scrollHeight' of undefined'에러는 setLayout 하기 전에 스크롤을 움직여서 그렇다. 값이 아직 없는데 스크롤 하니깐 그런거다.
+- load 이벤트가 끝나고 setLayout 이랑 scroll 등 다른 함수들이 동작하도록 load 이벤트 콜백 함수 안에 넣어주자.
+- 일단 그리고 스크롤을 잠궈주자. 스크롤은 컨텐츠가 바디 보다 양이 많아서 되는거다. 따라서 body에 컨텐츠가 넘쳐도 안보이게 하면 스크롤이 없을 것이다. 로딩 중에는 overflow를 hidden 해주고 그 후에 풀어주자.
+
+# 'CSS 애니메이션 퍼포먼스 향상시키기'에서 알게 된 것들
+
+- 지금까지 스크롤에 따라 엘리먼트들의 css 값들을 변화를 주면서 이펙트를 줬었다. 그럼 여기서 더 나아가 css 퍼포먼스를 향상시켜 보자. 어떻게 하냐? css의 will-change 속성을 사용하자. 이 속성을 사용하여 css 값이 변화가 있는 것을 browse에 미리 알려주자.
+- 하지만 will-change를 너무 남용하지 말자. 브라우저 자체로도 최적화를 계속 하고 있다. 브라우저가 만드는 최적화의 기본 행동은 바로 최적화를 제거하고 기본 상태로 되돌리는 것이다. 따라서 css에 will-change 요소를 넣으면 더 오랜 시간 최적화를 유지함을 의마함으로써 javascript 코드를 사용하여 변화 발생의 전후로 will-change의 활성 / 비활성화를 바꿔주는 것이 좋다.
+- 여기선 currentScene 값을 통해 현재 스크롤된 섹션을 파악하고 있으므로 currentScene에서만 will-change를 켜주자. will-change의 과도한 사용은 더 많은 메모리 사용과 더 복잡한 렌더링을 발생시킨다. 유의하자.
