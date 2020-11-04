@@ -622,6 +622,19 @@
     sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
     document.body.classList.remove("before-load");
 
+    let tempYOffset = pageYOffset;
+    let tempScrollCount = 0;
+
+    if (pageYOffset > 0) {
+      let siId;
+      siId = setInterval(() => {
+        window.scrollTo(0, tempYOffset);
+        tempYOffset += 10;
+        if (tempScrollCount > 20) clearInterval(siId);
+        tempScrollCount++;
+      }, 20);
+    }
+
     window.addEventListener("scroll", () => {
       yOffset = pageYOffset;
       scrollLoop();
@@ -635,13 +648,22 @@
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 900) {
+        /*
         setLayout();
         sceneInfo[3].values.rectStartY = 0; // 스크롤 섹션 3에서 캔버스가 시작될 위치를 이 값을 통해 구한다.
+        */
+        window.location.reload();
       }
     });
 
     window.addEventListener("orientationchange", () => {
+      /*
       setTimeout(setLayout, 500);
+      */
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     });
 
     document
