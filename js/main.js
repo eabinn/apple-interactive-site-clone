@@ -570,12 +570,25 @@
       prevScrollHeight += sceneInfo[i].scrollHeight;
     }
 
+    // scroll effect 영역 도달 시 scroll-effect-end 클래스 제거
+    if (delayedYOffset < sceneInfo[currentScene].scrollHeight) {
+      document.body.classList.remove("scroll-effect-end");
+    }
+
     if (
       delayedYOffset >
       prevScrollHeight + sceneInfo[currentScene].scrollHeight
     ) {
       enterNewScene = true;
-      currentScene++;
+
+      // 마자막 섹션, 즉 정적인 컨텐츠가 있는 섹션에 도착하면 scroll-effect-end 클래스를 붙여서 sticky-elem 들의 display를 none으로 set 한다.
+      if (currentScene === sceneInfo.length - 1) {
+        document.body.classList.add("scroll-effect-end");
+      }
+
+      // 마지막에 정적 컨텐츠 영역에서는 scrollHeight 계산 필요 없다.
+      if (currentScene < sceneInfo.length - 1) currentScene++;
+
       document.body.setAttribute("id", `show-scene-${currentScene}`);
     }
 
@@ -619,8 +632,9 @@
 
   window.addEventListener("load", () => {
     setLayout();
-    sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
     document.body.classList.remove("before-load");
+    setLayout();
+    sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
 
     let tempYOffset = pageYOffset;
     let tempScrollCount = 0;

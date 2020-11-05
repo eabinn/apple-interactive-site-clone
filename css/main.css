@@ -174,6 +174,9 @@ a {
   display: block;
   will-change: opacity, transform;
 }
+.scroll-effect-end .sticky-elem {
+  display: none !important;
+}
 .sticky-elem-canvas {
   top: 0;
   height: 100%;

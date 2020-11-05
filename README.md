@@ -165,3 +165,6 @@
 - window 객체의 scrollTo 메서드를 사용하자. 이 메서드는 첫번째로 x 가로 스크롤 값, 두번째로 y 스크롤 값을 받는다. 근데 우린 지금 y 스크롤만 취급하고 있으니 첫번째는 0 주고 두번째만 가지고 놀면 된다. 근데 window.scrollTo(0, 200) 하면 y로 200px 이동한다. 근데 window.scrollTo(0, 200) 하면 안된다. 이 메서드는 약간 시간의 차를 두고 실행해야 한다. setTimeout 사용하자. 근데 그냥 200 주면 안되지. 현재 스크롤 위치에서 아주 살짝 움직여주자. 그리고 이 움직이는 픽셀을 나눠서 살살살 이동시키자. 근데 연속으로 하니 setInterval을 사용하자.
 - 또한 이미지 블렌드 할 때 문제도 좀 있다. 이 섹션에서는 value들이 처음에 정해지는 것이 아니고 스크롤을 할 때 동적으로 정해진다. 이 문제는 resize 할 때 reload 해주자. reload 하면 어차피 setLayout 다시 한다.
 - 정답은 없다. 그냥 제일 위로 보내도 되고 그냥 매 순간순간을 계산해줘도 된다. 방법은 많다. 근데 모든 디바이스에서, 모든 화면의 크기에 대해 대응을 할 수는 없다. 방법은 언제든 있고 다수를 만족시키는 방향으로 가자.
+- 스크롤 섹션들을 지나고 나면 정적인 컨텐츠들을 정상적 스크롤로 보이게 하자.
+- sticky은 계속 붙어있다. currentScene이 현재 scroll section의 currentscene의 sticky elem 들만 보이게 처리하고 있었는데 이제 스크롤 이펙트가 필요없는 영역이 생겨서 이 영역에 올 때 그냥 display none을 해주는 것이 좋겠다.
+- prevScrollHeight는 0에다가 sceneInfo의 scrollHeight를 더하는데 currentScene은 3까지 증가... scene 3 이상부터는 delayedYOffset이 무조건 scrollHeight를 다 더한 것보다 크다. 그니깐 delayedYOffset이 scrollHeight 다 더한 것보다 작으면 scroll effect가 있어야 하는 scene에 스크롤이 있다는 말이다.
